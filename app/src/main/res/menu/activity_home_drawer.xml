@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="On-day Tools">
+        <menu>
+            <item
+                android:id="@+id/navigation_header_option_participantList"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Participants" />
+
+            <item
+                android:id="@+id/navigation_header_option_scanner"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Scan participant" />
+        </menu>
+
+    </item>
+</menu>
