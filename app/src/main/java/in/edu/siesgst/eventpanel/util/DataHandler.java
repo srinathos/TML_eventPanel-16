@@ -4,6 +4,11 @@ import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import in.edu.siesgst.eventpanel.fragment.participant.ParticipantContent;
+
 /**
  * Created by vishal on 5/1/16.
  */
@@ -68,5 +73,14 @@ public class DataHandler {
         }
     }
 
-
+    public static List<ParticipantContent.Participant> getParticipantList(Context context){
+        LocalDBHandler localDBHandler=new LocalDBHandler(context);
+        ArrayList<String> participantNames = localDBHandler.getParticipantNames();
+        ArrayList<String> participantPhones= localDBHandler.getParticipantPhone();
+        ArrayList<String> participantPaymentStatus = localDBHandler.getParticipantPaymentStatus();
+        List<ParticipantContent.Participant> participantList=new ArrayList<>();
+        for(int i=0;i<participantNames.size();i++)
+            participantList.add(new ParticipantContent.Participant(participantPhones.get(i),participantNames.get(i),participantPaymentStatus.get(i)));
+        return participantList;
+    }
 }

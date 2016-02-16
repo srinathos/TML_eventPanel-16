@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String extractIMEI() {
         return ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+
     }
 
     private void populateEventsSpinner() {
@@ -199,7 +200,8 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return new OnlineDBDownloader(getApplicationContext()).validate(mIMEI,mEmail,mEventName);
+            //return new OnlineDBDownloader(getApplicationContext()).validate(mIMEI,mEmail,mEventName);
+            return true;
         }
 
         @Override

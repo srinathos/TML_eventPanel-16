@@ -13,17 +13,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import in.edu.siesgst.eventpanel.fragment.ParticipantListFragment;
+import in.edu.siesgst.eventpanel.fragment.participant.ParticipantContent;
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ParticipantListFragment.OnListFragmentInteractionListener {
+
+    private final String PARTICIPANT_FRAGMENT_TAG = "pa";
+    private final String SCANNER_TAG = "sc";
+    private String uLastFragmentTag = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setupUI();
+        if (findViewById(R.id.home_fragment_framelayout) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+            applyFragment(PARTICIPANT_FRAGMENT_TAG);
+        }
     }
 
-    private void setupUI(){
+    private void setupUI() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,6 +48,11 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onParticipantSelected(ParticipantContent.Participant item) {
+        //TODO DO SHIT WHEN PARTICIPANT IS SELECTED
     }
 
     @Override
@@ -62,11 +80,34 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void applyFragment(String FRAGMENT_TAG) {
+        switch (FRAGMENT_TAG) {
+            case PARTICIPANT_FRAGMENT_TAG: {
+                if (uLastFragmentTag == null) {
+                    getSupportFragmentManager().beginTransaction().
+                            add(R.id.home_fragment_framelayout, new ParticipantListFragment(), PARTICIPANT_FRAGMENT_TAG).
+                            commit();
+                } else if (!uLastFragmentTag.equals(PARTICIPANT_FRAGMENT_TAG)) {
+                    getSupportFragmentManager().beginTransaction().
+                            remove(getSupportFragmentManager().findFragmentByTag(uLastFragmentTag)).
+                            add(R.id.home_fragment_framelayout, new ParticipantListFragment(), PARTICIPANT_FRAGMENT_TAG).
+                            commit();
+                }
+                uLastFragmentTag = PARTICIPANT_FRAGMENT_TAG;
+                break;
+            }
+            case SCANNER_TAG: {
+
+                break;
+            }
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -75,18 +116,14 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id) {
+            case R.id.navigation_header_option_participantList: {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+                break;
+            }
+            case R.id.navigation_header_option_scanner: {
+                break;
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
