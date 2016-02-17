@@ -11,5 +11,5 @@
     tools:listitem="@layout/recycler_rowlayout_participant_list"
     android:clickable="true"
     android:focusable="true"
-    android:background="?attr/selectableItemBackground"
+    android:background="?android:selectableItemBackground"
      />
