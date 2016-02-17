@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_marginLeft="14dp"
-    android:layout_marginRight="14dp">
+    android:layout_marginRight="14dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp">
+        android:layout_marginRight="2dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,8 +25,8 @@
                 android:id="@+id/participant_list_participant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
+                android:layout_marginTop="@dimen/text_margin"
                 android:text="Participant Name"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -45,9 +48,9 @@
                 android:id="@+id/participant_list_participant_payment_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Payment status"
                 android:layout_centerVertical="true"
-                android:gravity="right"/>
+                android:gravity="right"
+                android:text="Payment status" />
         </RelativeLayout>
     </LinearLayout>
 
