@@ -16,7 +16,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
@@ -29,6 +29,15 @@
         <activity
             android:name=".ParticipantDetails"
             android:label="@string/title_activity_participant_details"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.edu.siesgst.eventpanel.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".BarcodeScannerActivity"
+            android:label="@string/title_activity_barcode_scanner"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

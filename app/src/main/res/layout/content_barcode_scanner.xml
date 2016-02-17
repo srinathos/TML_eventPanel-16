@@ -1,16 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.edu.siesgst.eventpanel.BarcodeScannerActivity"
     tools:showIn="@layout/activity_barcode_scanner"
-    tools:context="in.edu.siesgst.eventpanel.BarcodeScannerActivity">
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/barcode_detail_activity_barcode_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_barcode_placeholder"
+        android:padding="5dp"
+        />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/barcode_detail_activity_participant_tml_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="TML_ID"
+        />
+    <TextView
+        android:id="@+id/barcode_detail_activity_participant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Srinath Obla"
+        android:textSize="22sp"
+        android:textColor="@android:color/black"/>
+    <TextView
+        android:id="@+id/barcode_detail_activity_participant_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="+919029522222"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        />
+    <TextView
+        android:id="@+id/barcode_detail_activity_participant_paymentstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="18sp"
+        android:text="Payment pending!"/>
+
+
+
+
+</LinearLayout>

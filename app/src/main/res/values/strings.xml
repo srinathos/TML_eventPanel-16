@@ -20,4 +20,5 @@
         completions."
     </string>
     <string name="title_activity_participant_details">ParticipantDetails</string>
+    <string name="title_activity_barcode_scanner">BarcodeScannerActivity</string>
 </resources>

@@ -9,6 +9,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import in.edu.siesgst.eventpanel.fragment.participant.ParticipantContent;
+
 /**
  * Created by vishal on 1/1/16.
  */
@@ -258,6 +260,15 @@ public class LocalDBHandler extends SQLiteOpenHelper {
             arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
         }
         return arrayList;
+    }
+
+    public ParticipantContent.Participant getParticipant(String TML_ID){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor=db.query(USER_TABLE_NAME,new String[]{U_NAME,U_PHONE,U_PAYMENT_STATUS},U_TML_ID+"='"+ TML_ID+"'",null,null,null,null);
+        cursor.moveToFirst();
+        String data[]={cursor.getString(cursor.getColumnIndex(U_NAME)),cursor.getString(cursor.getColumnIndex(U_PHONE)),cursor.getString(cursor.getColumnIndex(U_PAYMENT_STATUS))};
+        cursor.close();
+        return new ParticipantContent.Participant(data[0],data[1],data[3]);
     }
     public int getDBVersion() {
         return DB_VERSION;

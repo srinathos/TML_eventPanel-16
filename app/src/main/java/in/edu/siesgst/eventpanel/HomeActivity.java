@@ -1,5 +1,6 @@
 package in.edu.siesgst.eventpanel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -103,10 +104,6 @@ public class HomeActivity extends AppCompatActivity
                 uLastFragmentTag = PARTICIPANT_FRAGMENT_TAG;
                 break;
             }
-            case SCANNER_TAG: {
-
-                break;
-            }
         }
     }
 
@@ -118,10 +115,11 @@ public class HomeActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.navigation_header_option_participantList: {
-
+                applyFragment(PARTICIPANT_FRAGMENT_TAG);
                 break;
             }
             case R.id.navigation_header_option_scanner: {
+                startActivity(new Intent(this,BarcodeScannerActivity.class));
                 break;
             }
         }
