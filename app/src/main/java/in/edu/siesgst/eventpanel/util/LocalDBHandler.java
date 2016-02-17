@@ -27,6 +27,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     final String U_CREATED = "uCreated";
     final String U_MODIFIED = "uModified";
     final String U_PAYMENT_STATUS = "uPaymentStatus";
+    final String U_ATTENDANCE_STATUS = "uAttendance";
 
     final String E_KEY = "eID";
     final String E_NAME = "eName";
@@ -57,7 +58,8 @@ public class LocalDBHandler extends SQLiteOpenHelper {
             "College VARCHAR DEFAULT NULL," +
             "uCreated VARCHAR DEFAULT NULL," +
             "uModified VARCHAR DEFAULT NULL," +
-            "uPaymentStatus VARCHAR DEFAULT NULL )";
+            "uPaymentStatus VARCHAR DEFAULT NULL," +
+            "uAttendance VARCHAR DEFAULT NULL )";
 
     final String CREATE_EVENT_TABLE = "CREATE TABLE IF NOT EXISTS event_table(eID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "eName VARCHAR DEFAULT NULL," +
@@ -120,11 +122,11 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean doesEventTableExist(){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" + EVENT_TABLE_NAME + "'", null);
-        if(cursor!=null){
-            if(cursor.getCount()>0){
+    public boolean doesEventTableExist() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" + EVENT_TABLE_NAME + "'", null);
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
                 cursor.close();
                 return true;
             }
@@ -133,11 +135,11 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean isEventDataFilled(){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.query(EVENT_TABLE_NAME, new String[]{E_NAME}, null, null, null, null, null, null);
-        if(cursor!=null){
-            if(cursor.getCount()>0){
+    public boolean isEventDataFilled() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(EVENT_TABLE_NAME, new String[]{E_NAME}, null, null, null, null, null, null);
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
                 cursor.close();
                 return true;
             }
@@ -159,7 +161,8 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         values.put(COLLEGE, data[7]);
         values.put(U_CREATED, data[8]);
         values.put(U_MODIFIED, data[9]);
-        values.put(U_PAYMENT_STATUS,data[10]);
+        values.put(U_PAYMENT_STATUS, data[10]);
+        values.put(U_ATTENDANCE_STATUS,data[11]);
         db.insert(USER_TABLE_NAME, null, values);
         db.close();
     }
@@ -234,42 +237,87 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    public ArrayList<String> getParticipantNames(){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
-        ArrayList<String> arrayList=new ArrayList<String>();
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
-        }
-        return arrayList;
-    }
-    public ArrayList<String> getParticipantPaymentStatus(){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
-        ArrayList<String> arrayList=new ArrayList<String>();
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
-        }
-        return arrayList;
-    }
-    public ArrayList<String> getParticipantPhone(){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
-        ArrayList<String> arrayList=new ArrayList<String>();
+    public ArrayList<String> getParticipantNames() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
+        ArrayList<String> arrayList = new ArrayList<String>();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
         }
         return arrayList;
     }
 
-    public ParticipantContent.Participant getParticipant(String TML_ID){
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.query(USER_TABLE_NAME,new String[]{U_NAME,U_PHONE,U_PAYMENT_STATUS},U_TML_ID+"='"+ TML_ID+"'",null,null,null,null);
-        cursor.moveToFirst();
-        String data[]={cursor.getString(cursor.getColumnIndex(U_NAME)),cursor.getString(cursor.getColumnIndex(U_PHONE)),cursor.getString(cursor.getColumnIndex(U_PAYMENT_STATUS))};
-        cursor.close();
-        return new ParticipantContent.Participant(data[0],data[1],data[3]);
+    public ArrayList<String> getParticipantPaymentStatus() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
+        ArrayList<String> arrayList = new ArrayList<String>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
+        }
+        return arrayList;
     }
+
+    public ArrayList<String> getParticipantPhone() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_NAME}, null, null, null, null, null);
+        ArrayList<String> arrayList = new ArrayList<String>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            arrayList.add(cursor.getString(cursor.getColumnIndex(U_NAME)));
+        }
+        return arrayList;
+    }
+
+    public ParticipantContent.Participant getParticipant(String TML_ID) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_NAME, U_PHONE, U_PAYMENT_STATUS}, U_TML_ID + "='" + TML_ID + "'", null, null, null, null);
+        cursor.moveToFirst();
+        String data[] = {cursor.getString(cursor.getColumnIndex(U_NAME)), cursor.getString(cursor.getColumnIndex(U_PHONE)), cursor.getString(cursor.getColumnIndex(U_PAYMENT_STATUS))};
+        cursor.close();
+        return new ParticipantContent.Participant(data[0], data[1], data[3]);
+    }
+
+    public String getTotalParticipants(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_ATTENDANCE_STATUS},null, null, null, null, null);
+        String data=cursor.getCount()+"";
+        cursor.close();
+        return data;
+    }
+
+    public String getPresentParticipants(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_ATTENDANCE_STATUS}, U_ATTENDANCE_STATUS + "='T'", null, null, null, null);
+        String presentCount=cursor.getCount()+"";
+        cursor.close();
+        return presentCount;
+    }
+
+    public String getAbsentParticipants(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_ATTENDANCE_STATUS},U_ATTENDANCE_STATUS+"='F'", null, null, null, null);
+        String presentCount=cursor.getCount()+"";
+        cursor.close();
+        return presentCount;
+    }
+
+    public String getPaymentCompleteParticipants(){ //TODO Ask values from Shata
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_PAYMENT_STATUS},null, null, null, null, null);
+        return null;
+    }
+
+    public String getPaymentIncompleteParticipants(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_PAYMENT_STATUS},null, null, null, null, null);
+        return null;
+    }
+
+    public String getPaymentPartialCompleteParticipants(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor = db.query(USER_TABLE_NAME, new String[]{U_PAYMENT_STATUS},null, null, null, null, null);
+        return null;
+    }
+
     public int getDBVersion() {
         return DB_VERSION;
     }

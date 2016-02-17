@@ -1,6 +1,7 @@
 package in.edu.siesgst.eventpanel.util;
 
 import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -53,7 +54,7 @@ public class DataHandler {
         try {
             for (int i = 0; i < array.length(); i++) {
                 object = array.optJSONObject(i);
-                String[] data = new String[11];
+                String[] data = new String[12];
                 data[0] = object.optString("uID");
                 data[1] = object.optString("uName");
                 data[2] = object.optString("uEmail");
@@ -65,7 +66,7 @@ public class DataHandler {
                 data[8] = object.optString("uCreated");
                 data[9] = object.optString("uModified");
                 data[10] = object.optString("uPaymentStatus");
-
+                data[11]="F";
                 new LocalDBHandler(context).insertPartcipantData(data);
             }
         } catch (NullPointerException e) {
@@ -82,5 +83,17 @@ public class DataHandler {
         for(int i=0;i<participantNames.size();i++)
             participantList.add(new ParticipantContent.Participant(participantPhones.get(i),participantNames.get(i),participantPaymentStatus.get(i)));
         return participantList;
+    }
+
+    public static List<String> getEventStats(Context context){
+        LocalDBHandler localDBHandler=new LocalDBHandler(context);
+        ArrayList<String> eventStats=new ArrayList<>();
+        eventStats.add(localDBHandler.getTotalParticipants());
+        eventStats.add(localDBHandler.getPresentParticipants());
+        eventStats.add(localDBHandler.getAbsentParticipants());
+        eventStats.add(localDBHandler.getPaymentCompleteParticipants());
+        eventStats.add(localDBHandler.getPaymentIncompleteParticipants());
+        eventStats.add(localDBHandler.getPaymentPartialCompleteParticipants());
+        return eventStats;
     }
 }

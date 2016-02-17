@@ -2,9 +2,6 @@ package in.edu.siesgst.eventpanel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import in.edu.siesgst.eventpanel.fragment.EventStatsFragment;
 import in.edu.siesgst.eventpanel.fragment.ParticipantListFragment;
 import in.edu.siesgst.eventpanel.fragment.participant.ParticipantContent;
 
@@ -21,6 +19,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ParticipantListFragment.OnListFragmentInteractionListener {
 
     private final String PARTICIPANT_FRAGMENT_TAG = "pa";
+    private final String EVENT_STATS_FRAGMENT_TAG = "es";
     private final String SCANNER_TAG = "sc";
     private String uLastFragmentTag = null;
 
@@ -104,6 +103,20 @@ public class HomeActivity extends AppCompatActivity
                 uLastFragmentTag = PARTICIPANT_FRAGMENT_TAG;
                 break;
             }
+            case EVENT_STATS_FRAGMENT_TAG: {
+                if (uLastFragmentTag == null) {
+                    getSupportFragmentManager().beginTransaction().
+                            add(R.id.home_fragment_framelayout, new EventStatsFragment(), EVENT_STATS_FRAGMENT_TAG).
+                            commit();
+                } else if (!uLastFragmentTag.equals(EVENT_STATS_FRAGMENT_TAG)) {
+                    getSupportFragmentManager().beginTransaction().
+                            remove(getSupportFragmentManager().findFragmentByTag(uLastFragmentTag)).
+                            add(R.id.home_fragment_framelayout, new EventStatsFragment(), EVENT_STATS_FRAGMENT_TAG).
+                            commit();
+                }
+                uLastFragmentTag = EVENT_STATS_FRAGMENT_TAG;
+                break;
+            }
         }
     }
 
@@ -119,7 +132,11 @@ public class HomeActivity extends AppCompatActivity
                 break;
             }
             case R.id.navigation_header_option_scanner: {
-                startActivity(new Intent(this,BarcodeScannerActivity.class));
+                startActivity(new Intent(this, BarcodeScannerActivity.class));
+                break;
+            }
+            case R.id.navigation_header_option_event_stats: {
+                applyFragment(EVENT_STATS_FRAGMENT_TAG);
                 break;
             }
         }

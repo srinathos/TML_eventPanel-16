@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import in.edu.siesgst.eventpanel.fragment.participant.ParticipantContent;
-import in.edu.siesgst.eventpanel.util.LocalDBHandler;
 import in.edu.siesgst.eventpanel.util.QRInterface;
 
 public class BarcodeScannerActivity extends AppCompatActivity {
@@ -62,9 +60,10 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanResult != null) {
             tml_id_value=scanResult.getContents();
-            setupUI();
+            if(tml_id_value!=null)
+                setupUI();
+            else
+                finish();
         }
-        else
-            finish();
     }
 }

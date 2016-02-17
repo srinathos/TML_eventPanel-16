@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Participants"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attended"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_attended"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Absent"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_absent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment completed"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_payment_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full payment remaining"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_full_payment_remaining"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partial payment done"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+
+        <include layout="@layout/list_divider" />
+
+        <TextView
+            android:id="@+id/event_stats_partipant_advanced_payment_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="5dp"
+            android:text="100"
+            android:textColor="@android:color/black"
+            android:textSize="27sp" />
+
+    </LinearLayout>
+</ScrollView>
