@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import in.edu.siesgst.eventpanel.fragment.EventStatsFragment;
 import in.edu.siesgst.eventpanel.fragment.ParticipantListFragment;
@@ -48,6 +50,9 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View view=navigationView.getHeaderView(0);
+        ((TextView)view.findViewById(R.id.navigation_header_event_head_name)).setText(getPreferences(MODE_PRIVATE).getString(LoginActivity.EVENT_HEAD_NAME_KEY,""));
+        ((TextView)view.findViewById(R.id.navigation_header_event_name)).setText(getPreferences(MODE_PRIVATE).getString(LoginActivity.EVENT_SELECTED_NAME,""));
     }
 
     @Override

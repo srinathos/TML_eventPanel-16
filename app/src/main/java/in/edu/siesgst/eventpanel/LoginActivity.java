@@ -6,21 +6,23 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import org.json.JSONArray;
+
 import java.util.ArrayList;
+
 import in.edu.siesgst.eventpanel.util.DataHandler;
 import in.edu.siesgst.eventpanel.util.LocalDBHandler;
 import in.edu.siesgst.eventpanel.util.OnlineDBDownloader;
@@ -32,12 +34,15 @@ public class LoginActivity extends AppCompatActivity {
 
     UserLoginTask mAuthTask;
     // UI references.
-    private EditText mEmailView;
+    private EditText mEventHeadEmail;
+    private EditText mEventHeadName;
     private View mProgressView;
     private View mLoginFormView;
     private Spinner mEventsSpinner;
     private SharedPreferences loginPreferences;
     private final String LOGIN_STATUS_KEY = "LOGIN_STATUS";
+    public static final String EVENT_HEAD_NAME_KEY="EVENT_HEAD_NAME";
+    public static final String EVENT_SELECTED_NAME="EVENT_NAME";
     private final int ERROR_EMAIL_INVALID = 0;
     private final int ERROR_NETWORK_CONNECTION = 1;
 
@@ -51,7 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.login_form_email_id);
+        mEventHeadEmail = (EditText) findViewById(R.id.login_form_email_id);
+        mEventHeadName = (EditText)findViewById(R.id.login_form_name);
         mEventsSpinner = (Spinner) findViewById(R.id.login_form_event_spinner);
         Button mRegisterButton = (Button) findViewById(R.id.login_form_register_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
@@ -130,9 +136,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        if (isEmailValid(mEmailView.getText().toString())) {
+        if (isEmailValid(mEventHeadEmail.getText().toString())) {
             if (new OnlineDBDownloader(getApplicationContext()).checkConnection()) //checking for internet
-                new UserLoginTask(mEmailView.getText().toString(), extractIMEI(), mEventsSpinner.getSelectedItem().toString()).execute();
+                new UserLoginTask(mEventHeadEmail.getText().toString(), extractIMEI(), mEventsSpinner.getSelectedItem().toString()).execute();
             else
                 displayError(ERROR_NETWORK_CONNECTION);
         } else
@@ -142,7 +148,10 @@ public class LoginActivity extends AppCompatActivity {
     private void onLoginComplete(Boolean result) {
         if (result) {
             SharedPreferences.Editor editor = loginPreferences.edit();
-            editor.putBoolean(LOGIN_STATUS_KEY, true).apply();
+            editor.putBoolean(LOGIN_STATUS_KEY, true);
+            editor.putString(EVENT_HEAD_NAME_KEY,mEventHeadName.getText().toString());
+            editor.putString(EVENT_SELECTED_NAME,mEventsSpinner.getSelectedItem().toString()).
+                    apply();
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
         } else {
@@ -153,8 +162,8 @@ public class LoginActivity extends AppCompatActivity {
     private void displayError(int ERROR_TYPE) {
         switch (ERROR_TYPE) {
             case ERROR_EMAIL_INVALID: {
-                mEmailView.setError(getString(R.string.error_invalid_email));
-                mEmailView.requestFocus();
+                mEventHeadEmail.setError(getString(R.string.error_invalid_email));
+                mEventHeadEmail.requestFocus();
                 break;
             }
             case ERROR_NETWORK_CONNECTION:{
