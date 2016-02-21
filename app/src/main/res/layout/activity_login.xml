@@ -12,11 +12,11 @@
 
     <!-- Login progress -->
     <ProgressBar
-        android:layout_centerInParent="true"
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
@@ -27,9 +27,28 @@
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_DONOTUSE_id_1"
+            android:id="@+id/login_DONOTUSE_id_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_form_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/prompt_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_DONOTUSE_id_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_DONOTUSE_id_2">
 
             <EditText
                 android:id="@+id/login_form_email_id"
@@ -45,20 +64,20 @@
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
-            android:layout_below="@id/login_DONOTUSE_id_1"
             android:id="@+id/login_form_event_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_DONOTUSE_id_1"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
 
 
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/login_form_register_button"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="16dp"
             android:text="@string/action_sign_in_short"
             android:textStyle="bold" />
